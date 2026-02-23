@@ -128,33 +128,42 @@ def retrieveMsg(mainlist:list) -> str:
 # is the lst of tuple of pixel
 
 
-msg = "hey there so this is the password: Smashing@25Power this is written to longen the message as much as i can to check the limit"
+# msg = "hey there so this is the password: Smashing@25Power this is written to longen the message as much as i can to check the limit"
 
-from PIL import Image as img
+# from PIL import Image as img
 
-hand = img.open(r"C:\Users\rahul\Downloads\Photos\hand.jpeg")
-
-
-pixel = list(hand.getdata()) #getting all pixels as list of tuple of rgb
-
-tplchanging = ((len(msg)*8)//3)+1 #these number of tuple we want only to store the data
-
-hideIN = pixel[:tplchanging] #hence taking only those and storing msg in them
-mainlist = hidemsg(msg,hideIN)
-
-pixel[:tplchanging] = mainlist #replacing the actual typle with the tuple with hidden msg 
+# hand = img.open(r"C:\Users\rahul\Downloads\Photos\hand.jpeg")
 
 
-msgretrieved = retrieveMsg(pixel[:tplchanging]) #sending only the data that have the text
-print(msgretrieved)
+# pixel = list(hand.getdata()) #getting all pixels as list of tuple of rgb
 
+# tplchanging = ((len(msg)*8)//3)+1 #these number of tuple we want only to store the data
+
+# hideIN = pixel[:tplchanging] #hence taking only those and storing msg in them
+# mainlist = hidemsg(msg,hideIN)
+
+# pixel[:tplchanging] = mainlist #replacing the actual typle with the tuple with hidden msg 
+
+# hand.putdata(pixel)
+# hand.save("done.png")
+
+
+# so the above code take the message and save the msg in the image and save the image as done.png
+
+#where the code below just took the image and tried to find the msg in it which actually worked. the image
+#officially now have the msg in it and can be recieved by the code below
+from PIL import Image
+
+hand = Image.open(r"R:\Rahul\Google drive 2\CodeWorkspace\Projects\imgsecret\done.png")
+pixel = hand.getdata()
+print(retrieveMsg(pixel))
 
 
 
 '''
 TODO:
-1. see if the data i am getting after replacing actual tuple in pixel how to turn it into the img
-2. see a way to encrypt ande decrypt the message for more security
+2. see a way to encrypt ande decrypt the message for more security,
+where the encryption key will me made using a master password which will be used to decrypt the msg in the image 
 3. see a way to store the length of the message as that allow to read, change and pass only the part of the 
 tuple that have the msg not anything else
 4. see a way to like not to store the msg in the starting tuple only but anywhere in the middle
