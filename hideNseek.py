@@ -114,6 +114,7 @@ class retrieveMsg(img):
         """argument: nothing
         retrieve the encoded message from the selected image"""
         super().__init__()
+        print("Please wait. Retrieving the data...")
         self.encmsg = self.retrieveMsg()
 
 
@@ -123,6 +124,7 @@ class retrieveMsg(img):
         argument: nothing
         retrieve the encoded message from the selected image"""
         #flatting the list from 2d to 1d
+
         flatlst = []
         for tup in self.pixels:
             for ele in tup:
