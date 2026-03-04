@@ -1,6 +1,6 @@
 from encryption import encryptMsg, decryptMsg
 from hideNseek import storeMsg , retrieveMsg
-
+import time
 
 
 
@@ -78,9 +78,13 @@ splash = r"""
     ############################################################
     """
 print(splash)
+time.sleep(0.7)
 print("    Initializing GhostPixel engine...")
+time.sleep(0.7)
 print("    Checking cryptographic modules... [OK]")
+time.sleep(0.7)
 print("    System ready. No traces left.\n")
+time.sleep(0.7)
 
 main_menu()
 
