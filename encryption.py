@@ -95,7 +95,7 @@ class decryptMsg(security):
             self.key = self.generateKey(self.masterPwd,self.salt)
 
             self.decryptedmsg = self.decrypt()
-            print("\nMessage decrypted successfully.")
+            print("Message decrypted successfully.")
 
         except IndexError:
             print("Invalid Image: Can't find any stored information.")
@@ -106,13 +106,16 @@ class decryptMsg(security):
         """
         argument: nothing
         decrypts and return the decrypted message finally"""
+        try:
+            aesengine = AESGCM(self.key)
 
-        aesengine = AESGCM(self.key)
+            decrypted_msg = aesengine.decrypt(self.nonce, self.ciphertext, None)
+            msg = decrypted_msg.decode('utf-8')
 
-        decrypted_msg = aesengine.decrypt(self.nonce, self.ciphertext, None)
-        msg = decrypted_msg.decode('utf-8')
-
-        return msg
+            return msg
+        
+        except Exception:
+            print("Wrong Password: Entered Wrong password") 
     
     def getDecrMsg(self) -> str:
         """returns the decrypted message"""
