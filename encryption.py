@@ -111,19 +111,3 @@ class decryptMsg(security):
     def getDecrMsg(self) -> str:
         """returns the decrypted message"""
         return self.decryptedmsg
-
-
-enc = encryptMsg("hello is it working")
-print(enc.getEncMsg())
-
-dec = decryptMsg(enc.getEncMsg())
-print(dec.getDecrMsg())
-
-
-        
-    
-
-
-    
-
-
