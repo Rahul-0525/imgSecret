@@ -5,13 +5,18 @@ from PIL import Image
 
 
 class img():
+    """define methods for child classes storeMsg and retrieveMsg"""
 
     def __init__(self):
+        """
+        argument: nothing
+        get the path, image object and pixel of the image using a file explorer interface"""
         self.path = self.getImg()
         self.image = Image.open(self.path)
         self.pixels = list(self.image.getdata())
 
     def getImg(self) -> str:
+        """return the path of the file selected in file explorer interface"""
         root = tk.Tk()
         root.withdraw()
 
@@ -28,15 +33,21 @@ class img():
         return filepath
 
 class storeMsg(img):
+    """take msg from the user and store it in the selcted image"""
 
     def __init__(self,msg:str):
+        """argumert: encrypted message to store in the image
+        
+        input the msg and select the image to store the message in"""
         super().__init__()
         self.msg = msg
         self.pixel_required = ((len(self.msg)*8)//3)+1
         self.newPixel = self.store()
 
     
-    def store(self):
+    def store(self) -> list:
+        """argument: nothing
+        store the message in the image"""
         hideIn = self.pixels[:self.pixel_required]
         rows = len(hideIn)
         cols= len(hideIn[0])
@@ -79,6 +90,9 @@ class storeMsg(img):
 
     
     def saveImg(self):
+
+        """argument: nothing
+        rename and save the image in the selected folder"""
         root = tk.Tk()
         root.withdraw()
         folderpath = filedialog.askdirectory(title="Select a folder to save the image")
@@ -93,11 +107,55 @@ class storeMsg(img):
         else:
             print("Folder Selection cancelled.")
         
-i = storeMsg("hello how are you doing")
-i.saveImg()
-
-
-
+class retrieveMsg(img):
+    """argument: nothing 
+    retrieve the encoded message from the selected image"""
+    def __init__(self):
+        """argument: nothing
+        retrieve the encoded message from the selected image"""
+        super().__init__()
+        self.encmsg = self.retrieveMsg()
 
 
     
+    def retrieveMsg(self) -> str:
+        """
+        argument: nothing
+        retrieve the encoded message from the selected image"""
+        #flatting the list from 2d to 1d
+        flatlst = []
+        for tup in self.pixels:
+            for ele in tup:
+                flatlst.append((ele))
+
+        #retrieving the lsb of each pixel
+        retrievedmsgbits = []
+        for ele in flatlst:
+            retrievedmsgbits.append(ele & 0b00000001)
+
+
+        #grouping bits in group of 8 to from a byte
+        chrbytelst = []
+        chrbyte = ""
+        i=1
+        for ele in retrievedmsgbits:
+            chrbyte += str(ele)
+            if i%8 == 0:
+                chrbytelst.append(chrbyte)
+                chrbyte =''
+            i+=1
+
+
+        #converting the bytes into the msg
+        msgExtracted =""
+        for chrinbyte in chrbytelst:
+            ch = chr(int(chrinbyte, base=2)) #base 2 convert binary to integer
+            msgExtracted+=ch
+    
+        return msgExtracted
+
+
+    def getEncMsg(self):
+        """argument: nothing
+        returns the encoded message retrieved from the image"""
+        return self.encmsg
