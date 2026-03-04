@@ -113,11 +113,11 @@ class decryptMsg(security):
         return self.decryptedmsg
 
 
-encmsg = encryptMsg("hello is it working")
-print(encmsg.getEncMsg())
+# enc = encryptMsg("hello is it working")
+# print(enc.getEncMsg())
 
-decmsg = decryptMsg(encmsg.getEncMsg())
-print(decmsg.getDecrMsg())
+# dec = decryptMsg(enc.getEncMsg())
+# print(dec.getDecrMsg())
 
 
         
