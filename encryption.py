@@ -68,7 +68,7 @@ class encryptMsg(security):
         ciphertext_b64str = base64.b64encode(ciphertext).decode('utf-8')
         salt_b64str = base64.b64encode(self.salt).decode('utf-8')
         nonce_b64str = base64.b64encode(nonce).decode('utf-8')
-        return "001as".join([salt_b64str, nonce_b64str, ciphertext_b64str])
+        return "001as".join([salt_b64str, nonce_b64str, ciphertext_b64str+"001as"])
     
     def getEncMsg(self) -> str:
         """returns the encrypted message"""
@@ -113,11 +113,11 @@ class decryptMsg(security):
         return self.decryptedmsg
 
 
-# enc = encryptMsg("hello is it working")
-# print(enc.getEncMsg())
+enc = encryptMsg("hello is it working")
+print(enc.getEncMsg())
 
-# dec = decryptMsg(enc.getEncMsg())
-# print(dec.getDecrMsg())
+dec = decryptMsg(enc.getEncMsg())
+print(dec.getDecrMsg())
 
 
         
