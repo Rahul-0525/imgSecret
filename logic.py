@@ -153,7 +153,7 @@ def retrieveMsg(mainlist:list) -> str:
 #officially now have the msg in it and can be recieved by the code below
 from PIL import Image
 
-hand = Image.open(r"R:\Rahul\Google drive 2\CodeWorkspace\Projects\imgsecret\done2.png")
+hand = Image.open(r"C:\Users\rahul\Downloads\stored in.png")
 pixel = hand.getdata()
 print(retrieveMsg(pixel))
 
